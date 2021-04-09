@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <p id="data"></p>
+</body>
+
+<script>
+    p_tag = document.getElementById('data');
+    var getData = async () => {
+        token = localStorage.getItem('token');
+        var res = await fetch('/api/user/getUserData', {
+            method:'get',
+            headers: {
+                'Authorization': 'Bearer' + " " + token
+            }
+        });
+        resJSON = await res.json();
+        console.log(resJSON);
+        return resJSON;
+    }
+    window.onload = async () => {
+        const data = await getData();
+        var text = '';
+        for(key in data){
+            if(typeof(data[key]) === 'object'){
+                text += `<p>${JSON.stringify(data[key])}</p>`
+            }
+            else{
+                text += `<p>${data[key]}</p>`;
+            }
+        }
+        p_tag.innerHTML = text;
+    }
+</script>
+</html>

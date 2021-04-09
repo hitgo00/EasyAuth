@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <form id='login-form'>
+        <input type="text" placeholder="email" id="email">
+        <input type="password" placeholder="Password" id="password">
+        <input type="submit" value="Submit"></input>
+    </form>
+
+    <form id="logout-form">
+        <input type="submit" value="Logout" />
+    </form>
+
+    <script>
+        var loginUser = async (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            var res = await fetch('/api/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJldmVudF9pZCI6IjYwNTYzNDhhNTU5MDEyN2JlNGQ2ZmMwMyIsImNyZWF0b3JfaWQiOiI2MDU2MzQzNTU1OTAxMjdiZTRkNmZjMDEiLCJpYXQiOjE2MTYyNjIyODJ9.8_uK4xqHVitd5S1D3aGVinkEjQy9clsQRyWIbh1TdfI',
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            });
+            var resJson = await res.json();
+            console.log(resJson);
+            if (resJson.status === 'ok') {
+                console.log("Got the token:", resJson.data);
+                localStorage.setItem('token', resJson.data);
+            }
+            else {
+                console.log("An error has occured while logging in!!");
+            }
+        }
+
+        var logoutUser = async (event) => {
+            event.preventDefault();
+            localStorage.removeItem('token');
+            console.log("Logged out successfully!");
+        }
+
+        const form = document.getElementById('login-form');
+        const logoutForm = document.getElementById('logout-form');
+        form.addEventListener('submit', loginUser);
+        logoutForm.addEventListener('submit', logoutUser);
+    </script>
+</body>
+
+</html>

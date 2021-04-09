@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<style>
+    input{
+        display: block;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+</style>
+<body>
+    <h1>Register here</h1>
+    <form id='reg-form'>
+        <input type="text" placeholder="Username" id="username">
+        <input type="text" placeholder="Email" id="email">
+        <input type="password" placeholder="Password" id="password">
+        <input type="text" placeholder="Phone Number" id="phone">
+        <label for="year">Batch Year</label>
+        <select name="year" id="year">
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+        </select>
+        <input type="number" placeholder="age" id="age">
+        <input type="submit" value="Submit Form"></input>
+    </form>
+
+    <script>
+        var registerUser = async (event) => {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const phone = document.getElementById('phone').value;
+            const year = parseInt(document.getElementById('year').value);
+            const age = parseInt(document.getElementById('age').value);
+            var res = await fetch('/api/user/register',{
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                    username,
+                    email,
+                    password,
+                    phone,
+                    year,
+                    age
+                })
+            });
+            res = await res.json()
+            console.log(res);
+        }
+        const form = document.getElementById('reg-form');
+        form.addEventListener('submit',registerUser);
+    </script>
+</body>
+</html>
