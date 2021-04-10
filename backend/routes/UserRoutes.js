@@ -20,6 +20,8 @@ const JWT_SECRET_EVENT = process.env.JWT_SECRET_EVENT;
 const JWT_EXPIRY_DURATION = '6h';
 
 router.post('/register', async (req, res) => {
+    //for mail error check this:
+    //https://stackoverflow.com/questions/19877246/nodemailer-with-gmail-and-nodejs
     // console.log(req.body);
     const { password: plainUserPassword, email } = req.body;
     const token = req.header('Authorization').split(" ")[1];
