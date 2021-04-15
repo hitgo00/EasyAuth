@@ -6,6 +6,7 @@ import MenuAppBar from "./Components/MenuAppbar";
 import Admin from "./Pages/Admin";
 import Login from "./Pages/Login";
 import Events from "./Pages/Events";
+import Documentation from "./Pages/Documentation";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <PrivateRoute path="/admin" component={Admin} />
         <PrivateRoute path="/events" component={Events} />
         <PublicRoute path="/login" component={Login} />
+        <PrivateRoute path="/docs" component={Documentation} />
       </Switch>
     </BrowserRouter>
   );

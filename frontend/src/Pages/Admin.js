@@ -173,10 +173,10 @@ function Admin(props) {
               variant="body1"
               color="textSecondary"
             >
-              Click the button below to Show All events created by you, you can
+              Click the button below to See All events created by you, you can
               get token for created events, by which you can access our server
               to authenticate your event participants. Manage Users with
-              EasyAuth Dashboard and Services.
+              EasyAuth Dashboard.
             </Typography>
             <Fab
               className={classes.button}
@@ -203,6 +203,10 @@ function Admin(props) {
               size="large"
               color="primary"
               aria-label="add"
+              onClick={() => {
+                // console.log("docs");
+                history.push("/docs");
+              }}
             >
               <DescriptionIcon className={classes.buttonicon} />
               Documentation

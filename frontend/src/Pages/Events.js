@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import EventCard from "../Components/EventCard";
 import GetEvents from "../APIs/GetEvents";
 import GetUserData from "../APIs/GetUserData";
+import { saveAs } from "file-saver";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,7 +82,13 @@ function Events(props) {
   const [eventList, setEventList] = useState([]);
 
   const downloadEventData = (eventId) => {
-    GetUserData(localStorage.getItem("auth_token"), eventId);
+    const response = GetUserData(localStorage.getItem("auth_token"), eventId);
+    response.then((data) => {
+      saveAs(
+        window.URL.createObjectURL(new Blob([data], { type: "text/csv" })),
+        `${"Event_" + eventId + "_" + new Date().toUTCString()}.csv`
+      );
+    });
   };
 
   return (

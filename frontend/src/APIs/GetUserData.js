@@ -15,7 +15,7 @@ const GetUserData = async function (id_token, eventId) {
     headers: headerAuth,
   })
     .then((response) => {
-      return response;
+      return response.data;
     })
     .catch((err) => {
       return err;
